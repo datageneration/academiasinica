@@ -4,7 +4,7 @@
 Installed <- TRUE  # For checking if package is installed
 toInstall <- c("vroom", "finalfit", "tidyverse", "descr", "RColorBrewer", "scales")
 if(Installed){install.packages(toInstall, repos = "http://cran.us.r-project.org")}
-lapply(toInstall, require, character.only = TRUE) # call into library
+lapply(toInstall, library, character.only = TRUE) # call into library
 
 # Reading all real time data
 # vroom is the champion in reading github date, < 3 sec.
@@ -12,6 +12,7 @@ owidall = vroom("https://github.com/owid/covid-19-data/blob/master/public/data/o
 
 # Subset by year
 
+owid2024 = subset(owidall, format(as.Date(date),"%Y")==2024)
 owid2022 = subset(owidall, format(as.Date(date),"%Y")==2022)
 owid2021 = subset(owidall, format(as.Date(date),"%Y")==2021)
 owid2020 = subset(vroom("https://github.com/owid/covid-19-data/blob/master/public/data/owid-covid-data.csv?raw=true"), format(as.Date(date),"%Y")==2020)
@@ -35,7 +36,7 @@ owidasia = subset(owidall, continent=="Asia")
 owidtoday = subset(vroom("https://github.com/owid/covid-19-data/blob/master/public/data/owid-covid-data.csv?raw=true"), date == Sys.Date())
 
 
-owidtwtoday = subset(owid2022, location == "Taiwan" & date >="2023-09-25")
+owidtwtoday = subset(owid2022, location == "Taiwan" & date >="2025-07-10")
 options(scipen=999) # Disable scientific notation
 par(family = "Palatino")
 format(owideu$new_cases, big.mark = ",", scientific = FALSE)
@@ -66,7 +67,7 @@ ggplot(owidall, aes(date, new_cases, color = continent, alpha = new_cases)) +
   geom_point(size = .8) +
   theme_bw() +
   #  scale_colour_viridis_d(option = "plasma", direction = -1)+
-  scale_x_date(breaks = "month", date_labels= "%Y-%m", limits = as.Date(c("2020-02-01","2022-05-22"))) +
+  scale_x_date(breaks = "month", date_labels= "%Y-%m", limits = as.Date(c("2020-02-01","2024-12-32"))) +
   scale_y_continuous(labels = comma) + 
   xlab("Date") +
   ylab("New COVID Cases (Daily)") +

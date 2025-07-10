@@ -4,11 +4,11 @@
 Installed <- TRUE  # For checking if package is installed
 toInstall <- c("quantmod", "ggplot2", "magrittr","broom")
 if(Installed){install.packages(toInstall, repos = "http://cran.us.r-project.org")}
-lapply(toInstall, require, character.only = TRUE) # call into library
+lapply(toInstall, library, character.only = TRUE) # call into library
 
 # Setting time period
 start = as.Date("2010-07-01") 
-end = as.Date("2023-09-25")
+end = as.Date("2025-07-03")
 quantmod::getSymbols("AAPL")
 getSymbols("AAPL") # Get stock data of Apple
 # Get data from tiingo instead of yahoo (optional)
@@ -69,7 +69,7 @@ stocks_series = tidy(stocks) %>%
   ggplot(aes(x=index,y=value, color=series)) + 
   geom_line(linewidth=.5) +
   theme_bw() +
-  labs(title = "Daily Stock Prices, 7/1/2010 - 09/30/2022",
+  labs(title = "Daily Stock Prices, 7/1/2010 - 07/03/2025",
      subtitle = "End of Day Adjusted Prices",
      caption = "Source: Yahoo Finance") +
   xlab("Date") + ylab("Price") +
